@@ -1,0 +1,21 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:6a65ed76-2e78-4df2-8f39-31a553af32ce",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-22T10:33:53Z",
+    "supplier": { "name": "Spec Solutions Kft." },
+    "manufacturer": { "name": "Spec Solutions Kft." },
+    "component": {
+      "type": "application",
+      "bom-ref": "specsync",
+      "supplier": { "name": "Spec Solutions Kft." },
+      "publisher": "Spec Solutions Kft.",
+      "name": "SpecSync",
+      "description": "VEX of SpecSync for Azure DevOps and SpecSync for Jira (NuGet packages, native packages and Docker images): how known vulnerabilities of their components affect SpecSync"
+    }
+  },
+  "vulnerabilities": []
+}

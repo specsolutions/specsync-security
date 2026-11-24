@@ -1,0 +1,3 @@
+# Checksum files of the releases (copied from the documentation repository) keep LF line endings,
+# so that "sha256sum -c" works with them on every platform.
+SHA256SUMS -text

@@ -3,19 +3,300 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
   "serialNumber": "urn:uuid:6a65ed76-2e78-4df2-8f39-31a553af32ce",
-  "version": 1,
+  "version": 2,
   "metadata": {
-    "timestamp": "2026-11-22T10:33:53Z",
-    "supplier": { "name": "Spec Solutions Kft." },
-    "manufacturer": { "name": "Spec Solutions Kft." },
+    "timestamp": "2026-11-25T06:26:16Z",
+    "supplier": {
+      "name": "Spec Solutions Kft."
+    },
+    "manufacturer": {
+      "name": "Spec Solutions Kft."
+    },
     "component": {
       "type": "application",
       "bom-ref": "specsync",
-      "supplier": { "name": "Spec Solutions Kft." },
+      "supplier": {
+        "name": "Spec Solutions Kft."
+      },
       "publisher": "Spec Solutions Kft.",
       "name": "SpecSync",
       "description": "VEX of SpecSync for Azure DevOps and SpecSync for Jira (NuGet packages, native packages and Docker images): how known vulnerabilities of their components affect SpecSync"
     }
   },
-  "vulnerabilities": []
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Security.Cryptography.Pkcs",
+      "name": "System.Security.Cryptography.Pkcs",
+      "purl": "pkg:nuget/System.Security.Cryptography.Pkcs"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Security.Cryptography.Xml",
+      "name": "System.Security.Cryptography.Xml",
+      "purl": "pkg:nuget/System.Security.Cryptography.Xml"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "bom-ref": "vex-cve-2026-84008",
+      "id": "CVE-2026-84008",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84008"
+      },
+      "references": [
+        {
+          "id": "GHSA-846f-f764-76mx",
+          "source": {
+            "name": "GitHub Advisories",
+            "url": "https://github.com/advisories/GHSA-846f-f764-76mx"
+          }
+        }
+      ],
+      "ratings": [
+        {
+          "source": {
+            "name": "GitHub Advisories",
+            "url": "https://github.com/advisories/GHSA-846f-f764-76mx"
+          },
+          "score": 7.5,
+          "severity": "high",
+          "method": "CVSSv31",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "cwes": [
+        407
+      ],
+      "description": ".NET denial of service vulnerability in System.Security.Cryptography.Pkcs (SignedCms.CheckSignature).",
+      "published": "2026-10-13T20:03:30Z",
+      "analysis": {
+        "state": "not_affected",
+        "justification": "requires_configuration",
+        "detail": "SpecSync calls SignedCms.CheckSignature only when it verifies the signature of a SpecSync plugin package, not in its normal operation. A plugin is loaded only when the configuration names it explicitly, with its package name and version, and only at the start of the process; SpecSync never loads unknown plugins unattended. Without an explicitly configured package source, plugins are loaded from nuget.org, which validates package signatures itself. Adding a plugin is a configuration change that is tested in an interactive session, where resource exhaustion would be noticed and stopped, so the vulnerability cannot be used for a denial of service. SpecSync v5.7.0 and the next v3.4 release include version 10.0.13, which is not affected.",
+        "firstIssued": "2026-11-24T18:04:21Z",
+        "lastUpdated": "2026-11-25T06:26:16Z"
+      },
+      "affects": [
+        {
+          "ref": "pkg:nuget/System.Security.Cryptography.Pkcs",
+          "versions": [
+            {
+              "range": "vers:nuget/>=8.0.0|<=8.0.1|>=9.0.0|<=9.0.20|>=10.0.0|<=10.0.12|>=11.0.0-preview.1|<=11.0.0-rc.1",
+              "status": "affected"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bom-ref": "vex-cve-2026-70162",
+      "id": "CVE-2026-70162",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-70162"
+      },
+      "references": [
+        {
+          "id": "GHSA-2fmv-rv2c-59x7",
+          "source": {
+            "name": "GitHub Advisories",
+            "url": "https://github.com/advisories/GHSA-2fmv-rv2c-59x7"
+          }
+        }
+      ],
+      "ratings": [
+        {
+          "source": {
+            "name": "GitHub Advisories",
+            "url": "https://github.com/advisories/GHSA-2fmv-rv2c-59x7"
+          },
+          "score": 5.9,
+          "severity": "medium",
+          "method": "CVSSv31",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "cwes": [
+        405
+      ],
+      "description": ".NET denial of service vulnerability in System.Security.Cryptography.Pkcs (EnvelopedCms.Decode, on Windows).",
+      "published": "2026-10-13T20:07:20Z",
+      "analysis": {
+        "state": "not_affected",
+        "justification": "code_not_reachable",
+        "detail": "SpecSync does not decode CMS or PKCS#7 enveloped (encrypted) data, so EnvelopedCms.Decode, the affected code, is not used. SpecSync v5.7.0 and the next v3.4 release include version 10.0.13, which is not affected.",
+        "firstIssued": "2026-11-24T18:09:05Z",
+        "lastUpdated": "2026-11-24T18:09:05Z"
+      },
+      "affects": [
+        {
+          "ref": "pkg:nuget/System.Security.Cryptography.Pkcs",
+          "versions": [
+            {
+              "range": "vers:nuget/>=8.0.0|<=8.0.1|>=9.0.0|<=9.0.20|>=10.0.0|<=10.0.12|>=11.0.0-preview.1|<=11.0.0-rc.1",
+              "status": "affected"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bom-ref": "vex-cve-2026-96958",
+      "id": "CVE-2026-96958",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96958"
+      },
+      "references": [
+        {
+          "id": "GHSA-r955-8q5j-3h83",
+          "source": {
+            "name": "GitHub Advisories",
+            "url": "https://github.com/advisories/GHSA-r955-8q5j-3h83"
+          }
+        }
+      ],
+      "ratings": [
+        {
+          "source": {
+            "name": "GitHub Advisories",
+            "url": "https://github.com/advisories/GHSA-r955-8q5j-3h83"
+          },
+          "score": 7.5,
+          "severity": "high",
+          "method": "CVSSv31",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "cwes": [
+        407
+      ],
+      "description": ".NET denial of service vulnerability in System.Security.Cryptography.Xml (signed XML processing).",
+      "published": "2026-10-13T20:05:52Z",
+      "analysis": {
+        "state": "not_affected",
+        "justification": "code_not_reachable",
+        "detail": "SpecSync does not create, verify or decrypt signed or encrypted XML documents (SignedXml, EncryptedXml), so the affected code of System.Security.Cryptography.Xml is not used. The package is included only as a dependency of other components. SpecSync v5.7.0 and the next v3.4 release include version 10.0.13, which is not affected.",
+        "firstIssued": "2026-11-24T18:09:05Z",
+        "lastUpdated": "2026-11-24T18:09:05Z"
+      },
+      "affects": [
+        {
+          "ref": "pkg:nuget/System.Security.Cryptography.Xml",
+          "versions": [
+            {
+              "range": "vers:nuget/>=8.0.0|<=8.0.4|>=9.0.0|<=9.0.20|>=10.0.0|<=10.0.12|>=11.0.0-preview.1|<=11.0.0-rc.1",
+              "status": "affected"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bom-ref": "vex-cve-2026-96959",
+      "id": "CVE-2026-96959",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96959"
+      },
+      "references": [
+        {
+          "id": "GHSA-c399-9853-6jmj",
+          "source": {
+            "name": "GitHub Advisories",
+            "url": "https://github.com/advisories/GHSA-c399-9853-6jmj"
+          }
+        }
+      ],
+      "ratings": [
+        {
+          "source": {
+            "name": "GitHub Advisories",
+            "url": "https://github.com/advisories/GHSA-c399-9853-6jmj"
+          },
+          "score": 7.5,
+          "severity": "high",
+          "method": "CVSSv31",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "cwes": [
+        770
+      ],
+      "description": ".NET denial of service vulnerability in System.Security.Cryptography.Xml (signed XML processing).",
+      "published": "2026-10-13T20:49:06Z",
+      "analysis": {
+        "state": "not_affected",
+        "justification": "code_not_reachable",
+        "detail": "SpecSync does not create, verify or decrypt signed or encrypted XML documents (SignedXml, EncryptedXml), so the affected code of System.Security.Cryptography.Xml is not used. The package is included only as a dependency of other components. SpecSync v5.7.0 and the next v3.4 release include version 10.0.13, which is not affected.",
+        "firstIssued": "2026-11-24T18:09:05Z",
+        "lastUpdated": "2026-11-24T18:09:05Z"
+      },
+      "affects": [
+        {
+          "ref": "pkg:nuget/System.Security.Cryptography.Xml",
+          "versions": [
+            {
+              "range": "vers:nuget/>=8.0.0|<=8.0.4|>=9.0.0|<=9.0.20|>=10.0.0|<=10.0.12|>=11.0.0-preview.1|<=11.0.0-rc.1",
+              "status": "affected"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bom-ref": "vex-cve-2026-96960",
+      "id": "CVE-2026-96960",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96960"
+      },
+      "references": [
+        {
+          "id": "GHSA-7hqp-7c5m-4vq6",
+          "source": {
+            "name": "GitHub Advisories",
+            "url": "https://github.com/advisories/GHSA-7hqp-7c5m-4vq6"
+          }
+        }
+      ],
+      "ratings": [
+        {
+          "source": {
+            "name": "GitHub Advisories",
+            "url": "https://github.com/advisories/GHSA-7hqp-7c5m-4vq6"
+          },
+          "score": 7.5,
+          "severity": "high",
+          "method": "CVSSv31",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "cwes": [
+        405
+      ],
+      "description": ".NET denial of service vulnerability in System.Security.Cryptography.Xml (signed XML processing).",
+      "published": "2026-10-13T20:26:27Z",
+      "analysis": {
+        "state": "not_affected",
+        "justification": "code_not_reachable",
+        "detail": "SpecSync does not create, verify or decrypt signed or encrypted XML documents (SignedXml, EncryptedXml), so the affected code of System.Security.Cryptography.Xml is not used. The package is included only as a dependency of other components. SpecSync v5.7.0 and the next v3.4 release include version 10.0.13, which is not affected.",
+        "firstIssued": "2026-11-24T18:09:05Z",
+        "lastUpdated": "2026-11-24T18:09:05Z"
+      },
+      "affects": [
+        {
+          "ref": "pkg:nuget/System.Security.Cryptography.Xml",
+          "versions": [
+            {
+              "range": "vers:nuget/>=8.0.0|<=8.0.4|>=9.0.0|<=9.0.20|>=10.0.0|<=10.0.12|>=11.0.0-preview.1|<=11.0.0-rc.1",
+              "status": "affected"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
